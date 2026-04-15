@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Talk — Ресми сайт</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<header>
+    <div class="logo">
+        <img src="images/icon.png" alt="Book Talk">
+        <span class="logo-text">Book Talk</span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="#reviews-section">Пікірлер</a></li>
+        <li><a href="#discuss-section">Талқылау</a></li>
+        <li><a href="#catalog-section">Каталог</a></li>
+        <li><a href="javascript:void(0)" onclick="openModal('aboutModal')">Туралы</a></li>
+        <li><a href="tel:+77083530677" class="btn-contact">📞 Хабарласу</a></li>
+    </ul>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">📚 Кітап сүйерлер қауымдастығы</div>
+        <h1>Кітаптар арқылы<br><span>өмірді тану</span> орталығы</h1>
+        <p>Кітаптарды таңдаңыз, пікір қалдырыңыз, ой бөлісіңіз — бірге оқу одан да терең</p>
+    </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+    <div class="stat">
+        <div class="stat-number" id="reviewCount">0</div>
+        <div class="stat-label">Пікір</div>
+    </div>
+    <div class="stat">
+        <div class="stat-number">48</div>
+        <div class="stat-label">Кітап</div>
+    </div>
+    <div class="stat">
+        <div class="stat-number" id="threadCount">0</div>
+        <div class="stat-label">Талқылау</div>
+    </div>
+    <div class="stat">
+        <div class="stat-number">4.9</div>
+        <div class="stat-label">Орта баға</div>
+    </div>
+</div>
+
+<!-- ===== REVIEWS SECTION ===== -->
+<section class="content-section" id="reviews-section">
+    <div class="section-title">Оқырмандар <span>пікірлері</span></div>
+    <div class="section-sub">Нақты оқырмандардың ойлары мен бағалары</div>
+
+    <div class="reviews-grid" id="reviewsGrid">
+        <!-- Rendered by JS -->
+    </div>
+
+    <!-- REVIEW FORM -->
+    <div class="review-form-box">
+        <h3>✍️ Пікір қалдыру</h3>
+        <p>Оқыған кітабыңыз туралы ой бөлісіңіз</p>
+
+        <div class="star-selector" id="starSelector">
+            <input type="radio" name="star" id="s5" value="5"><label for="s5">★</label>
+            <input type="radio" name="star" id="s4" value="4"><label for="s4">★</label>
+            <input type="radio" name="star" id="s3" value="3"><label for="s3">★</label>
+            <input type="radio" name="star" id="s2" value="2"><label for="s2">★</label>
+            <input type="radio" name="star" id="s1" value="1"><label for="s1">★</label>
+        </div>
+
+        <form id="reviewForm">
+            <div class="form-group">
+                <input type="text" id="reviewName" placeholder="Есіміңіз" required>
+            </div>
+            <div class="form-group">
+                <select id="reviewBook" required>
+                    <option value="">— Кітап таңдаңыз —</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <textarea id="reviewText" placeholder="Пікіріңізді жазыңыз..." rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn-submit">📨 Пікір жіберу</button>
+        </form>
+    </div>
+</section>
+
+<!-- ===== DISCUSSION SECTION ===== -->
+<section class="content-section" id="discuss-section" style="padding-top: 0;">
+    <div class="section-title">Кітап <span>Талқылауы</span></div>
+    <div class="section-sub">Ойларыңызды бөлісіп, пікірталас ашыңыз</div>
+
+    <div class="discuss-layout">
+        <!-- Thread list -->
+        <div>
+            <div id="threadsContainer"></div>
+        </div>
+
+        <!-- Join discussion form -->
+        <div>
+            <div class="review-form-box">
+                <h3>💬 Талқылауға қосылу</h3>
+                <p>Жаңа тақырып ашыңыз немесе сұрақ қойыңыз</p>
+                <form id="discussForm">
+                    <div class="form-group">
+                        <input type="text" id="dName" placeholder="Есіміңіз" required>
+                    </div>
+                    <div class="form-group">
+                        <select id="dBook" required>
+                            <option value="">— Кітап таңдаңыз —</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="dTopic" placeholder="Тақырыбыңызды жазыңыз..." rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">🚀 Тақырып ашу</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CATALOG SECTION ===== -->
+<section class="content-section" id="catalog-section" style="padding-top: 0;">
+    <div class="section-title">Кітаптар <span>Каталогы</span></div>
+    <div class="section-sub">48 таңдаулы кітап — қазақ, орыс және әлем әдебиеті</div>
+
+    <div class="catalog-filters" id="catalogFilters">
+        <button class="filter-btn active" onclick="filterBooks('all', this)">Барлығы</button>
+        <button class="filter-btn" onclick="filterBooks('kazakh', this)">Қазақ әдебиеті</button>
+        <button class="filter-btn" onclick="filterBooks('russian', this)">Орыс әдебиеті</button>
+        <button class="filter-btn" onclick="filterBooks('world', this)">Әлем әдебиеті</button>
+        <button class="filter-btn" onclick="filterBooks('modern', this)">Қазіргі заман</button>
+    </div>
+
+    <div class="books-grid" id="booksGrid"></div>
+</section>
+
+<!-- ===== ABOUT MODAL ===== -->
+<div id="aboutModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('aboutModal')">×</span>
+        <h2>🌟 Book Talk туралы</h2>
+        <p style="color:var(--muted); line-height:1.8; margin-bottom:16px;">
+            Book Talk — бұл кітап сүйер қауымға арналған заманауи платформа. Мұнда сіз кітаптарды таңдап, пікір қалдырып, басқа оқырмандармен ой бөлісе аласыз.
+        </p>
+        <p style="color:var(--muted); line-height:1.8;">
+            Бұл жай ғана сайт емес — бұл идеялар мен шабыт алмасатын орта. Оқу — бірге оқу.
+        </p>
+    </div>
+</div>
+
+<!-- ===== BOOK DETAIL MODAL ===== -->
+<div id="bookModal" class="modal">
+    <div class="modal-content" style="max-width:520px;">
+        <span class="close-btn" onclick="closeModal('bookModal')">×</span>
+        <div class="book-detail-cover" id="bookDetailCover"></div>
+        <div class="book-genre" id="bookDetailGenre"></div>
+        <h2 id="bookDetailTitle" style="margin-bottom:6px;"></h2>
+        <div style="color:var(--muted);font-size:0.9rem;margin-bottom:12px;" id="bookDetailAuthor"></div>
+        <div style="color:var(--gold);margin-bottom:16px;" id="bookDetailRating"></div>
+        <p style="color:rgba(240,236,228,0.75);line-height:1.8;font-size:0.95rem;" id="bookDetailDesc"></p>
+        <div class="book-action-btns" style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;">
+            <button class="btn-summary" onclick="openSummaryModal()">🎬 Қысқаша мазмұны</button>
+            <button class="btn-fullbook" onclick="openFullBookModal()">📖 Толық кітап</button>
+        </div>
+        <button class="btn-submit" style="margin-top:12px;width:100%;" onclick="openReviewForBook()">✍️ Пікір жазу</button>
+    </div>
+</div>
+
+<!-- ===== SUMMARY MODAL ===== -->
+<div id="summaryModal" class="modal">
+    <div class="modal-content" style="max-width:580px;">
+        <span class="close-btn" onclick="closeModal('summaryModal')">×</span>
+        <h2 id="summaryModalTitle" style="margin-bottom:8px;">🎬 Қысқаша мазмұны</h2>
+        <div id="summaryModalAuthor" style="color:var(--muted);font-size:0.9rem;margin-bottom:20px;"></div>
+
+        <!-- Video upload area -->
+        <div class="video-upload-area" id="videoArea" style="cursor:default;"></div>
+        <div id="summaryText" style="margin-top:18px;color:rgba(240,236,228,0.8);line-height:1.8;font-size:0.92rem;padding:14px;background:rgba(255,255,255,0.03);border-radius:10px;border:1px solid var(--border);"></div>
+    </div>
+</div>
+
+<!-- ===== FULL BOOK MODAL ===== -->
+<div id="fullBookModal" class="modal">
+    <div class="modal-content" style="max-width:580px;">
+        <span class="close-btn" onclick="closeModal('fullBookModal')">×</span>
+        <h2 id="fullBookModalTitle" style="margin-bottom:6px;">📖 Толық кітап</h2>
+        <div id="fullBookModalAuthor" style="color:var(--muted);font-size:0.9rem;margin-bottom:20px;"></div>
+
+        <!-- PDF view (when uploaded) -->
+        <div id="pdfViewSection" style="display:none;">
+            <div class="fullbook-option" onclick="openPdf()" style="margin-bottom:12px;">
+                <div class="fullbook-icon">📄</div>
+                <div style="flex:1;">
+                    <div class="fullbook-opt-title">PDF оқу</div>
+                    <div class="fullbook-opt-sub" id="pdfFileName"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <span class="logo-text">Book Talk</span>
+            <p>Кітап сүйерлерге арналған қауымдастық платформасы. Оқыңыз, бөлісіңіз, дамыңыз.</p>
+        </div>
+        <div class="footer-col">
+            <h5>Навигация</h5>
+            <ul>
+                <li><a href="#reviews-section">Пікірлер</a></li>
+                <li><a href="#discuss-section">Талқылау</a></li>
+                <li><a href="#catalog-section">Каталог</a></li>
+                <li><a href="javascript:void(0)" onclick="openModal('aboutModal')">Сайт туралы</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h5>Байланыс</h5>
+            <div class="social-links">
+                <a href="https://instagram.com/booktalking26" target="_blank" class="social-link">📸 Instagram</a>
+                <a href="https://t.me/sknurgull" target="_blank" class="social-link">✈️ Telegram</a>
+                <a href="tel:+77083530677" class="social-link">📞 +7 708 353 0677</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">© 2026 Book Talk — Барлық құқықтар қорғалған</div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+<script src="script.js"></script>
+</html>
